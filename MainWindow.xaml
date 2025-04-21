@@ -1,0 +1,36 @@
+﻿<Window x:Class="testThurs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:testThurs"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left: List of books -->
+        <ListBox Grid.Column="0" ItemsSource="{Binding Movies}" DisplayMemberPath="Title" Margin="10"/>
+
+        <!-- Right: Controls -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10">
+            <TextBlock Text="Title" />
+            <TextBox Text="{Binding NewTitle, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Director" />
+            <TextBox Text="{Binding NewDirector, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Year" />
+            <TextBox Text="{Binding NewYear, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+
+            <Button Content="Add Book" Command="{Binding AddBookCommand}" Margin="0,0,0,10"/>
+            <TextBox x:Name="SearchBox" Width="200" Margin="0,0,0,10"/>
+            <Button Content="Search" Command="{Binding SearchBookCommand}" CommandParameter="{Binding Text, ElementName=SearchBox}" Margin="0,0,0,10"/>
+            <TextBlock Text="{Binding SearchResult}" FontWeight="Bold" Margin="0,0,0,10"/>
+            <Button Content="Export to File" Command="{Binding ExportCommand}" Margin="0,0,0,10"/>
+        </StackPanel>
+    </Grid>
+</Window>
