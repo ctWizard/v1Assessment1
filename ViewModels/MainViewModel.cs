@@ -8,26 +8,42 @@ namespace MovieLibraryApp
 {
     public partial class MainViewModel : ObservableObject
     {
+        //propertys for the new data inputs
         [ObservableProperty]
         private string newId = string.Empty;
-
         [ObservableProperty]
         private string newTitle = string.Empty;
-
         [ObservableProperty]
         private string newDirector = string.Empty;
-
         [ObservableProperty]
         private string newYear = string.Empty;
+        [ObservableProperty]
+        private bool newAval = true;
 
+        //Creates linked list that holds all raw data
         private MyLinkedList<Movie> _movieList = new();
+
         private readonly IExportService _exportService;
 
         [ObservableProperty]
+        //movies is the left listbox
         private ObservableCollection<Movie> movies = new();
+        //search results is the right datagrid
+        private ObservableCollection<Movie> _searchResults = new();
 
-        [ObservableProperty]
-        private string searchResult = string.Empty;
+        public ObservableCollection<Movie> SearchResults { 
+            get => _searchResults;
+            set
+            {
+                _searchResults = value;
+                OnPropertyChanged(nameof(SearchResults));
+            }
+
+        }
+        //search title is the string for finding movies by title
+        private ObservableCollection<Movie> searchTitle = new();
+
+        
 
         public MainViewModel() : this(new ExportService()) { }
 
@@ -38,15 +54,15 @@ namespace MovieLibraryApp
         }
 
         [RelayCommand]
-        private void AddBook()
+        private void AddMovie()
         {
-            if (int.TryParse(newYear, out int parsedYear))
+            if (int.TryParse(NewYear, out int parsedYear))
             {
                 var movie = new Movie
                 {
-                    MovieID = newId,
-                    Title = newTitle,
-                    Director = newDirector,
+                    MovieID = NewId,
+                    Title = NewTitle,
+                    Director = NewDirector,
                     ReleaseYear = parsedYear,
                     Availible = true,
                 };
@@ -56,18 +72,15 @@ namespace MovieLibraryApp
 
                 
             }
-            else
-            {
-                SearchResult = "Invalid year.";
-            }
+            
         }
 
-
         [RelayCommand]
-        private void SearchBook(string title)
+        private void SearchTitleCmd(string title)
         {
-            var result = _movieList.Find(b => b.Title.ToLower() == title.ToLower());
-            SearchResult = result != null ? $"Found: {result.Title} by {result.Director}" : "Movie not found.";
+            if (!string.IsNullOrEmpty(title)) { 
+                SearchResults = new ObservableCollection<Movie>(_movieList.Enumerate());
+            }
         }
 
         [RelayCommand]

@@ -73,5 +73,16 @@ namespace testThurs.Models
             }
             return result;
         }
+
+        public IEnumerable<T> Enumerate()
+        {
+            var current = head;
+            while (current != null)
+            {
+                yield return current.Data;
+                current = current.Next;
+            }
+        }
+
     }
 }
