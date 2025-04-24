@@ -14,15 +14,25 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left: List of books -->
-        <ListBox Grid.Column="0" ItemsSource="{Binding Movies}" DisplayMemberPath="Title" Margin="10"/>
+		<StackPanel Grid.Column="0">
+			<TextBlock Text ="Data"  Margin="10"/>
+			<ListBox  ItemsSource="{Binding Movies}" DisplayMemberPath="Title" Margin="10" />
+		</StackPanel>
+		
 
         <!-- Center: Controls -->
         <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10">
+			<TextBlock Text="Id"/>
+			<TextBox Text="{Binding NewId, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+			
             <TextBlock Text="Title" />
             <TextBox Text="{Binding NewTitle, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
 
             <TextBlock Text="Director" />
             <TextBox Text="{Binding NewDirector, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+
+			<TextBlock Text="Genre" />
+			<TextBox Text="{Binding NewGenre, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
 
             <TextBlock Text="Year" />
             <TextBox Text="{Binding NewYear, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
@@ -38,10 +48,6 @@
         </StackPanel>
 		
 		<!-- Right search and sort output -->
-
-		
-
-
 		<DataGrid Grid.Column="2" Name="MovieGrid" Margin="10" IsReadOnly="True" CanUserAddRows="False" ItemsSource="{Binding SearchResults}"/>
     </Grid>
 </Window>

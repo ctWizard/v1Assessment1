@@ -16,6 +16,8 @@ namespace MovieLibraryApp
         [ObservableProperty]
         private string newDirector = string.Empty;
         [ObservableProperty]
+        private string newGenre = string.Empty;
+        [ObservableProperty]
         private string newYear = string.Empty;
         [ObservableProperty]
         private bool newAval = true;
@@ -63,14 +65,19 @@ namespace MovieLibraryApp
                     MovieID = NewId,
                     Title = NewTitle,
                     Director = NewDirector,
+                    Genre = NewGenre,
                     ReleaseYear = parsedYear,
                     Availible = true,
                 };
 
                 _movieList.Add(movie);
                 RefreshMovies();
+                NewId = ""; 
+                NewTitle = "";
+                NewDirector = "";
+                NewGenre = "";
+                NewYear = "";
 
-                
             }
             
         }
@@ -78,9 +85,10 @@ namespace MovieLibraryApp
         [RelayCommand]
         private void SearchTitleCmd(string title)
         {
-            if (!string.IsNullOrEmpty(title)) { 
-                SearchResults = new ObservableCollection<Movie>(_movieList.Enumerate());
-            }
+            SearchResults.Clear();
+            var movie = _movieList.FindByTitle(title);
+            if (movie != null) { SearchResults.Add(movie); }
+            
         }
 
         [RelayCommand]

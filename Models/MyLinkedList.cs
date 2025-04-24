@@ -7,14 +7,14 @@ namespace testThurs.Models
     {
         private class Node
         {
-            public T Data;
+            public Movie Data;
             public Node? Next;
-            public Node(T data) => Data = data;
+            public Node(Movie data) => Data = data;
         }
 
         private Node? head;
 
-        public void Add(T item)
+        public void Add(Movie item)
         {
             var newNode = new Node(item);
             if (head == null)
@@ -28,14 +28,14 @@ namespace testThurs.Models
             }
         }
 
-        public bool Remove(Predicate<T> match)
+        public bool Remove(Movie match)
         {
             Node? current = head;
             Node? previous = null;
 
             while (current != null)
             {
-                if (match(current.Data))
+                if (match==(current.Data))
                 {
                     if (previous == null)
                         head = current.Next;
@@ -50,21 +50,21 @@ namespace testThurs.Models
             return false;
         }
 
-        public T? Find(Predicate<T> match)
+        public Movie FindByTitle(string title)
         {
-            var current = head;
+            Node? current = head;
             while (current != null)
             {
-                if (match(current.Data))
-                    return current.Data;
+                if (current.Data.Title == title)
+                { return current.Data; }
                 current = current.Next;
             }
-            return default;
+            return null;
         }
 
-        public List<T> ToList()
+        public List<Movie> ToList()
         {
-            var result = new List<T>();
+            var result = new List<Movie>();
             var current = head;
             while (current != null)
             {
@@ -74,15 +74,6 @@ namespace testThurs.Models
             return result;
         }
 
-        public IEnumerable<T> Enumerate()
-        {
-            var current = head;
-            while (current != null)
-            {
-                yield return current.Data;
-                current = current.Next;
-            }
-        }
 
     }
 }
