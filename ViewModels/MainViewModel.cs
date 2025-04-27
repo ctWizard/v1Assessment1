@@ -25,6 +25,8 @@ namespace MovieLibraryApp
         //Creates linked list that holds all raw data
         private MyLinkedList<Movie> _movieList = new();
 
+        private MyHashTable _movieHashTable = new MyHashTable();
+
         private readonly IExportService _exportService;
 
         [ObservableProperty]
@@ -71,6 +73,7 @@ namespace MovieLibraryApp
                 };
 
                 _movieList.Add(movie);
+                _movieHashTable.Add(NewId,movie);
                 RefreshMovies();
                 NewId = ""; 
                 NewTitle = "";
@@ -89,6 +92,13 @@ namespace MovieLibraryApp
             var movie = _movieList.FindByTitle(title);
             if (movie != null) { SearchResults.Add(movie); }
             
+        }
+        [RelayCommand]
+        private void SearchIdCmd(string id)
+        {  
+            SearchResults.Clear();
+            Movie movie = _movieHashTable.Get(id);
+            if (movie != null) { SearchResults.Add(movie); }
         }
 
         [RelayCommand]
