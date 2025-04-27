@@ -1,3 +1,6 @@
+using testThurs.Models;
+using testThurs.Services;
+
 namespace testThurs.Models
 {
     public class Movie
@@ -8,5 +11,18 @@ namespace testThurs.Models
         public string Genre {  get; set; } = string.Empty;
         public int ReleaseYear { get; set; }
         public bool Availible { get; set; }
+
+        public ReservationQueue ReservationQueue { get; } = new ReservationQueue();
+
+        public void AddReservation(string resurvedName)
+        {
+            ReservationQueue.Enqueue(resurvedName);
+        }
+
+        public string? ServeNextPerson()
+        {
+            return ReservationQueue.Dequeue();
+        }
+        
     }
 }

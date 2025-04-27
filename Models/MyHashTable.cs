@@ -34,7 +34,7 @@ namespace testThurs.Models
             return index;
         }
 
-        public void Add(string key, Movie value)
+        public bool Add(string key, Movie value)
         {
             int index = GetIndex(key);
             HashNode? head = _buckets[index];
@@ -43,7 +43,7 @@ namespace testThurs.Models
             {
                 if (head.Key == key)
                 {
-                    return;
+                    return false;
                 }
                 head = head.Next;
 
@@ -54,6 +54,7 @@ namespace testThurs.Models
                 Next = _buckets[index]
             };
             _buckets[index] = newNode;
+            return true;
 
         }
 

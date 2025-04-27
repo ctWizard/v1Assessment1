@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Windows;
 using testThurs.Models;
 using testThurs.Services;
 
@@ -72,8 +73,11 @@ namespace MovieLibraryApp
                     Availible = true,
                 };
 
-                _movieList.Add(movie);
-                _movieHashTable.Add(NewId,movie);
+                
+
+                bool check = _movieHashTable.Add(NewId, movie);
+                if (check==false) { MessageBox.Show("Duplicate ID value '" + NewId + "' is already in use");}
+                else _movieList.Add(movie);
                 RefreshMovies();
                 NewId = ""; 
                 NewTitle = "";
