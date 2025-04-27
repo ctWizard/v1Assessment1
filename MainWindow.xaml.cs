@@ -9,6 +9,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MovieLibraryApp;
+using testThurs.Models;
+using System.IO;
 
 
 namespace testThurs;
@@ -22,5 +24,10 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = new MainViewModel();
+
+
+        
+       
+
     }
 }
