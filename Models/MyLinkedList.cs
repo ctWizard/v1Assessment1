@@ -17,6 +17,16 @@ namespace testThurs.Models
 
         private Node? head;
 
+        public IEnumerable<Movie> GetAllMovies()
+        {
+            var current = head;
+            while (current != null)
+            {
+                yield return current.Data;
+                current = current.Next;
+            }
+        }
+
         public void Add(Movie item)
         {
             var newNode = new Node(item);
@@ -72,6 +82,19 @@ namespace testThurs.Models
             while (current != null)
             {
                 result.Add(current.Data);
+                current = current.Next;
+            }
+            return result;
+        }
+
+        public List<string> ToStringList()
+        {
+            var result = new List<string>();
+            var current = head;
+            while (current != null)
+            {
+                Movie movie = current.Data;
+                result.Add($"{movie.MovieID} {movie.Title}");
                 current = current.Next;
             }
             return result;

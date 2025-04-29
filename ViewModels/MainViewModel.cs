@@ -1,7 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows;
+using System.Windows.Controls;
 using testThurs.Models;
 
 
@@ -30,9 +32,23 @@ namespace MovieLibraryApp
 
 
 
-        [ObservableProperty]
+        
         //movies is the left listbox
-        private ObservableCollection<Movie> movies = new();
+        public ObservableCollection<Movie> MoviesLeft { get; set; } = new ObservableCollection<Movie>();
+
+        private Movie _selectedMovie;
+        public Movie SelectedMovie
+        {
+            get => _selectedMovie;
+            set
+            {
+                _selectedMovie = value;
+                OnPropertyChanged();
+            }
+        }
+        
+
+
         //search results is the right datagrid
         private ObservableCollection<Movie> _searchResults = new();
 
@@ -133,7 +149,16 @@ namespace MovieLibraryApp
 
         private void RefreshMovies()
         {
-            Movies = new ObservableCollection<Movie>(_movieList.ToList());
+            
+
+            MoviesLeft.Clear();
+
+            foreach (var movie in _movieList.GetAllMovies())
+            {
+                MoviesLeft.Add(movie);
+            }
+            
+
         }
     }
 }

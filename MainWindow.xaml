@@ -16,8 +16,20 @@
         <!-- Left: List of books -->
 		<StackPanel Grid.Column="0">
 			<TextBlock Text ="Data"  Margin="10"/>
-			<ListBox  ItemsSource="{Binding Movies}" DisplayMemberPath="Title" Margin="10" />
-		</StackPanel>
+            
+            
+            <ListBox ItemsSource="{Binding MoviesLeft}"  
+                     SelectedItem="{Binding SelectedMovie,Mode=Twoway}">
+                
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DisplayText}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>    
+            
+            
+            </ListBox>
+        </StackPanel>
 		
 
         <!-- Center: Controls -->
