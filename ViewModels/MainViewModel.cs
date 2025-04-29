@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows;
 using testThurs.Models;
-using testThurs.Services;
+
 
 namespace MovieLibraryApp
 {
@@ -28,7 +28,7 @@ namespace MovieLibraryApp
 
         private MyHashTable _movieHashTable = new MyHashTable();
 
-        private readonly IExportService _exportService;
+
 
         [ObservableProperty]
         //movies is the left listbox
@@ -50,13 +50,7 @@ namespace MovieLibraryApp
 
         
 
-        public MainViewModel() : this(new ExportService()) { }
-
-        public MainViewModel(IExportService exportService)
-        {
-            _exportService = exportService;
-            RefreshMovies();
-        }
+        
 
         [RelayCommand]
         private void AddMovie()
@@ -101,15 +95,40 @@ namespace MovieLibraryApp
         private void SearchIdCmd(string id)
         {  
             SearchResults.Clear();
-            Movie movie = _movieHashTable.Get(id);
+            Movie? movie = _movieHashTable.Get(id);
             if (movie != null) { SearchResults.Add(movie); }
         }
 
         [RelayCommand]
+        private void SortBubble()
+        {
+            SearchResults.Clear();
+            _movieList.BubbleSortByTitle();
+            List<Movie> output = _movieList.ToList();
+            foreach (Movie movie in output)
+            {
+                SearchResults.Add(movie);
+            }
+
+        }
+
+        [RelayCommand]
+        private void SortMerge()
+        {
+            SearchResults.Clear();
+            _movieList.MergeSortByTitle();
+            List<Movie> output = _movieList.ToList();
+            foreach (Movie movie in output)
+            {
+                SearchResults.Add(movie);
+            }
+        }
+        [RelayCommand]
         private void Export()
         {
-            string path = "books_export.csv";
-            _exportService.ExportBooks(_movieList.ToList(), path);
+            //"C:\Users\corey\.gitconfig"
+            string path = "C:\\Users/corey/movies.csv";
+            _movieList.ExportToCsv(path);
         }
 
         private void RefreshMovies()

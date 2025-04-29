@@ -49,6 +49,15 @@
         </StackPanel>
 		
 		<!-- Right search and sort output -->
-		<DataGrid Grid.Column="2" Name="MovieGrid" Margin="10" IsReadOnly="True" CanUserAddRows="False" ItemsSource="{Binding SearchResults}"/>
+        <StackPanel Grid.Column="2">
+            <DataGrid  Name="MovieGrid" Margin="10" IsReadOnly="True" CanUserAddRows="False" ItemsSource="{Binding SearchResults}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button  Content="BubbleSortButton" Command="{Binding SortBubbleCommand}" Margin="10"/>
+                <Button  Content="MergeSortButton" Command="{Binding SortMergeCommand}" Margin="10"/>
+            </StackPanel>
+            
+            
+        </StackPanel>
+		
     </Grid>
 </Window>

@@ -61,5 +61,16 @@ namespace testThurs.Models
         {
             return _count == 0;
         }
+        public List<string> ToList()
+        {
+            List<string> list = new List<string>();
+            Node? current = _head;
+            while (current != null)
+            {
+                list.Add(current.Data);
+                current = current.Next;
+            }
+            return list;
+        }
     }
 }
