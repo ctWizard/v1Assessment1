@@ -56,7 +56,8 @@
 			<TextBox x:Name="TitleSearchBox" Width="200" Margin="0,0,0,10"/>
 			<Button Content="TitleSearchButton" Command="{Binding SearchTitleCmdCommand}" CommandParameter="{Binding Text, ElementName=TitleSearchBox}" Margin="0,0,0,10"/>
 			<Button Content="IdSearchButton" Command="{Binding SearchIdCmdCommand}" CommandParameter="{Binding Text, ElementName=TitleSearchBox}" Margin="0,0,0,10"/>
-			
+
+            <Button Content="Import Movies" Command="{Binding ImportMoviesFromFileCommand}"/>
             <Button Content="Export to File" Command="{Binding ExportCommand}" Margin="0,0,0,10"/>
         </StackPanel>
 		

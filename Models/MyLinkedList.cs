@@ -16,6 +16,8 @@ namespace testThurs.Models
         }
 
         private Node? head;
+        //link to hash table
+        private MyHashTable _hashTable = new MyHashTable();
 
         public IEnumerable<Movie> GetAllMovies()
         {
@@ -39,7 +41,46 @@ namespace testThurs.Models
                     current = current.Next;
                 current.Next = newNode;
             }
+            Movie movie = newNode.Data;
+            _hashTable.Add(movie.MovieID, movie);
         }
+
+        public void ImportFromCsv(string filePath)
+        {
+            if (!File.Exists(filePath)) return;
+
+            using var reader = new StreamReader(filePath);
+
+            string? line;
+            bool isFirstLine = true;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                if (isFirstLine)
+                {
+                    isFirstLine = false;
+                    continue;
+                }
+                var parts = line.Split(',');
+
+                if (parts.Length >= 6)
+                {
+                    var movie = new Movie
+                    {
+                        MovieID = parts[0],
+                        Title = parts[1],
+                        Director = parts[2],
+                        Genre = parts[3],
+                        ReleaseYear = int.TryParse(parts[4], out var releaseYear) ? releaseYear : 0,
+                        Availible = bool.TryParse(parts[5], out var available) && available
+                    };
+                    Add(movie);
+                }
+                
+            }
+        }
+
+
 
         public bool Remove(Movie match)
         {
@@ -144,14 +185,15 @@ namespace testThurs.Models
         }
         private Node? MergeSort(Node? node)
         {
-            if (head==null && head.Next == null) 
-                return null;
-            Node middle = GetMiddle(head);
+            if (node==null && node.Next == null) 
+                return node;
+            Node? middle = GetMiddle(node);
+            if (middle == null || middle == node)
+                return node;
             Node nextOfMiddle = middle.Next;
-
             middle.Next = null;
 
-            Node left = MergeSort(head);
+            Node left = MergeSort(node);
             Node right = MergeSort(nextOfMiddle);
 
             Node sortedList = SortedMerge(left, right);
@@ -161,7 +203,7 @@ namespace testThurs.Models
         private Node SortedMerge(Node? a,Node? b)
         {
             if (a == null)
-                return b!;
+                return b;
             if (b == null)
                 return a;
 
@@ -180,17 +222,18 @@ namespace testThurs.Models
             return result;
         }
 
-        private Node GetMiddle(Node head)
+        private Node? GetMiddle(Node head)
         {
             if (head == null)
-                return head;
+                return null;
 
             Node slow = head;
             Node? fast = head.Next;
 
-            while (fast != null)
+            while (fast != null && fast.Next != null)
             {
-                slow = fast; fast = fast.Next;
+                slow = slow.Next; 
+                fast = fast.Next.Next;
             }
 
             return slow;

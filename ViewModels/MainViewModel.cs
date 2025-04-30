@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using testThurs.Models;
@@ -115,6 +116,29 @@ namespace MovieLibraryApp
             if (movie != null) { SearchResults.Add(movie); }
         }
 
+
+        [RelayCommand]
+        public void ImportMoviesFromFile()
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "CSV files (*.csv)|*.csv"
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                _movieList.ImportFromCsv(dialog.FileName);
+                RefreshMovies() ;
+                
+                
+
+            }
+
+            
+        }
+
+
+
+
         [RelayCommand]
         private void SortBubble()
         {
@@ -138,6 +162,7 @@ namespace MovieLibraryApp
             {
                 SearchResults.Add(movie);
             }
+            RefreshMovies();
         }
         [RelayCommand]
         private void Export()
