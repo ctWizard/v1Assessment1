@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:assignment1"
         mc:Ignorable="d"
         Title="ReserveMovie" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <StackPanel Margin="10">
+        <TextBlock Text="Enter Movie ID:" Margin="0,0,0,5"/>
+        <TextBox x:Name="MovieIdTextBox" Margin="0,0,0,10"/>
+        <TextBlock Text="Your Name:" Margin="0,0,0,5"/>
+        <TextBox x:Name="NameTextBox" Margin="0,0,0,10"/>
+        <Button Content="Reserve" Click="Reserve_Click"/>
+    </StackPanel>
 </Window>

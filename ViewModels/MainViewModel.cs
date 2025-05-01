@@ -1,3 +1,4 @@
+using assignment1;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -27,9 +28,9 @@ namespace MovieLibraryApp
         private bool newAval = true;
 
         //Creates linked list that holds all raw data
-        private MyLinkedList<Movie> _movieList = new();
+        public MyLinkedList<Movie> _movieList = new();
 
-        private MyHashTable _movieHashTable = new MyHashTable();
+        public MyHashTable _movieHashTable = new MyHashTable();
 
 
 
@@ -185,5 +186,17 @@ namespace MovieLibraryApp
             
 
         }
+
+        [RelayCommand]
+        private void OpenBorrowMovie()
+        {
+            var borrowWindow = new ReserveMovie(this);
+            borrowWindow.ShowDialog();
+        }
+
+
+
+
+
     }
 }

@@ -29,6 +29,7 @@
             
             
             </ListBox>
+            <Button Content="Borrow Movie" Command="{Binding OpenBorrowMovieCommand}" Margin="10"/>
         </StackPanel>
 		
 

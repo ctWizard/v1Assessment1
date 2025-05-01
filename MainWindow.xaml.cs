@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using MovieLibraryApp;
 using testThurs.Models;
 using System.IO;
+using assignment1;
 
 
 namespace testThurs;
@@ -20,14 +21,16 @@ namespace testThurs;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private MainViewModel _viewModel;
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainViewModel();
-
+        _viewModel = new MainViewModel();
+        DataContext = _viewModel;
+    }
 
         
-       
 
-    }
+
+
 }
