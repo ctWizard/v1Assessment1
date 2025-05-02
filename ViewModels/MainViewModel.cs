@@ -1,4 +1,4 @@
-using assignment1;
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -27,6 +27,16 @@ namespace MovieLibraryApp
         [ObservableProperty]
         private bool newAval = true;
 
+        //Property for selecting movie to borrow by id
+        [ObservableProperty]
+        private string movieIdToBorrow = string.Empty;
+
+        [ObservableProperty]
+        private string borrowerName = string.Empty;
+
+        [ObservableProperty]
+        private string returnId = string.Empty;
+
         //Creates linked list that holds all raw data
         public MyLinkedList<Movie> _movieList = new();
 
@@ -35,19 +45,7 @@ namespace MovieLibraryApp
 
 
         
-        //movies is the left listbox
-        public ObservableCollection<Movie> MoviesLeft { get; set; } = new ObservableCollection<Movie>();
-
-        private Movie _selectedMovie;
-        public Movie SelectedMovie
-        {
-            get => _selectedMovie;
-            set
-            {
-                _selectedMovie = value;
-                OnPropertyChanged();
-            }
-        }
+        
         
 
 
@@ -68,7 +66,89 @@ namespace MovieLibraryApp
 
         
 
+
+        [RelayCommand]
+        private void Borrow_Click()
+        {
+            Movie? movie = _movieHashTable.Get(MovieIdToBorrow);
+            if (movie == null)
+            {
+                MessageBox.Show($"{movieIdToBorrow} does not match a movie");
+                return;
+            }
+
+            if (!movie.Availible)
+            {
+                if (borrowerName.Length > 1)
+                {
+                    MessageBox.Show($"{borrowerName} has been added to the queue for{movie.Title}");
+                    movie.ReservationQueue.Enqueue(borrowerName);
+                    RefreshMovies();
+                    return;
+                }
+                MessageBox.Show($"Name to short");
+
+            }
+            else
+            {
+                MessageBox.Show($"{borrowerName} has borrowed {movie.Title}");
+                movie.Availible = false;
+                movie.ReservationQueue.Enqueue(borrowerName);
+                RefreshMovies();
+                return;
+            }
+        }
+
+        [RelayCommand]
+        private void ReturnMovie()
+        {
+            if (string.IsNullOrWhiteSpace(returnId))
+            {
+                MessageBox.Show("Please enter a valid movie ID.");
+                return;
+            }
+            Movie? movie = _movieHashTable.Get(returnId);
+
+            if (movie == null)
+            {
+                MessageBox.Show($"No movie found with ID {returnId}");
+                return;
+            }   
+                
+            if (!movie.Availible)
+            {
+                if (!movie.ReservationQueue.IsEmpty())
+                {
+                    string returningUser = movie.ReservationQueue.Dequeue();
+                    if (!movie.ReservationQueue.IsEmpty())
+                    {
+                        string nextUser = movie.ReservationQueue.Peek();
+                        MessageBox.Show($"{ returningUser} has returned {movie.Title} movie has been given to {movie.ReservationQueue.Peek()}");
+                    }
+                    else
+                    {
+                        movie.Availible = true;
+                        MessageBox.Show($"{returningUser} has returned movie {movie.Title} noone else in queue");
+                    }
+                }
+                else
+                { //Edge case should not trigger
+                    movie.Availible = true;
+
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("This movie has already been marked as availible.");
+            }
+                RefreshMovies();
+
+
+
+        }
         
+
 
         [RelayCommand]
         private void AddMovie()
@@ -128,7 +208,13 @@ namespace MovieLibraryApp
             if (dialog.ShowDialog() == true)
             {
                 _movieList.ImportFromCsv(dialog.FileName);
-                RefreshMovies() ;
+                List<Movie> movieListTemp = new List<Movie>();
+
+                foreach (var movie in movieListTemp)
+                {
+                    _movieHashTable.Add(NewId, movie);
+                }
+                    RefreshMovies() ;
                 
                 
 
@@ -177,22 +263,20 @@ namespace MovieLibraryApp
         {
             
 
-            MoviesLeft.Clear();
+            SearchResults.Clear();
 
-            foreach (var movie in _movieList.GetAllMovies())
+           
+            List<Movie> output = _movieList.ToList();
+            foreach (Movie movie in output)
             {
-                MoviesLeft.Add(movie);
+                SearchResults.Add(movie);
             }
             
 
+
         }
 
-        [RelayCommand]
-        private void OpenBorrowMovie()
-        {
-            var borrowWindow = new ReserveMovie(this);
-            borrowWindow.ShowDialog();
-        }
+       
 
 
 

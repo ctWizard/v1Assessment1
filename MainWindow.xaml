@@ -10,28 +10,27 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="3*" />
-			<ColumnDefinition Width="2*" />
+			<ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Left: List of books -->
-		<StackPanel Grid.Column="0">
-			<TextBlock Text ="Data"  Margin="10"/>
-            
-            
-            <ListBox ItemsSource="{Binding MoviesLeft}"  
-                     SelectedItem="{Binding SelectedMovie,Mode=Twoway}">
-                
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding DisplayText}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>    
-            
-            
-            </ListBox>
-            <Button Content="Borrow Movie" Command="{Binding OpenBorrowMovieCommand}" Margin="10"/>
+        
+        <StackPanel Margin="10">
+            <TextBlock Text="Borrow movie:"/>
+            <TextBlock Text="Enter Movie ID:" Margin="0,0,0,5"/>
+            <TextBox x:Name="MovieIdTextBox" Text="{Binding MovieIdToBorrow}"  Margin="0,0,0,10"/>
+            <TextBlock Text="Your Name:" Margin="0,0,0,5"/>
+            <TextBox x:Name="NameTextBox" Text="{Binding BorrowerName}" Margin="0,0,0,10"/>
+            <Button Content="Borrow" Command="{Binding Borrow_ClickCommand}"/>
+
+            <TextBlock Text="Return Movie"/>
+            <TextBlock Text="Movie ID"/>
+            <TextBox Text="{Binding ReturnId}" Margin="0,0,0,10"/>
+            <Button Content="Return" Command="{Binding ReturnMovieCommand}" Margin="0,0,0,10"/>
+
         </StackPanel>
-		
+
+
+
 
         <!-- Center: Controls -->
         <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10">
@@ -64,7 +63,18 @@
 		
 		<!-- Right search and sort output -->
         <StackPanel Grid.Column="2">
-            <DataGrid  Name="MovieGrid" Margin="10" IsReadOnly="True" CanUserAddRows="False" ItemsSource="{Binding SearchResults}"/>
+            <DataGrid  Name="MovieGrid" Margin="10" IsReadOnly="True" CanUserAddRows="False" 
+                       ItemsSource="{Binding SearchResults}" AutoGenerateColumns="False" CanUserSortColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding MovieID}"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                    <DataGridTextColumn Header="Director" Binding="{Binding Director}"/>
+                    <DataGridTextColumn Header="Genre" Binding="{Binding Genre}"/>
+                    <DataGridTextColumn Header="ReleaseYear" Binding="{Binding ReleaseYear}"/>
+                    <DataGridTextColumn Header="Availible" Binding="{Binding Availible}"/>
+                    <DataGridTextColumn Header="ReservationQueue" Binding="{Binding ReservationQueue}"/>
+                </DataGrid.Columns>
+            </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                 <Button  Content="BubbleSortButton" Command="{Binding SortBubbleCommand}" Margin="10"/>
                 <Button  Content="MergeSortButton" Command="{Binding SortMergeCommand}" Margin="10"/>

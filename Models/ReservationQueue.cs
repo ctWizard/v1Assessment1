@@ -33,6 +33,7 @@ namespace testThurs.Models
                 _tail.Next = newNode;
                 _tail = newNode;
             }
+            _count++;
         }
         public string? Dequeue()
         {
