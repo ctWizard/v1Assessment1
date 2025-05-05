@@ -13,6 +13,7 @@ using testThurs.Models;
 using System.IO;
 
 
+
 namespace testThurs;
 
 /// <summary>
@@ -20,14 +21,16 @@ namespace testThurs;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private MainViewModel _viewModel;
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainViewModel();
-
+        _viewModel = new MainViewModel();
+        DataContext = _viewModel;
+    }
 
         
-       
 
-    }
+
+
 }

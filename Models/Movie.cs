@@ -1,5 +1,5 @@
 using testThurs.Models;
-using testThurs.Services;
+
 
 namespace testThurs.Models
 {
@@ -12,6 +12,8 @@ namespace testThurs.Models
         public int ReleaseYear { get; set; }
         public bool Availible { get; set; }
 
+        public string DisplayText => $"{MovieID} - {Title}";
+
         public ReservationQueue ReservationQueue { get; } = new ReservationQueue();
 
         public void AddReservation(string resurvedName)
@@ -23,6 +25,7 @@ namespace testThurs.Models
         {
             return ReservationQueue.Dequeue();
         }
+        
         
     }
 }

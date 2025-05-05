@@ -4,12 +4,12 @@ namespace testThurs.Models
     {
         private class Node
         {
-            public string Data;
+            public string Name;
             public Node? Next;
 
-            public Node(string data)
+            public Node(string name)
             {
-                Data = data;
+                Name=name;
             }
         }
         private Node? _head;
@@ -33,6 +33,7 @@ namespace testThurs.Models
                 _tail.Next = newNode;
                 _tail = newNode;
             }
+            _count++;
         }
         public string? Dequeue()
         {
@@ -41,7 +42,7 @@ namespace testThurs.Models
                 return null; //empty queue
             }
 
-            string result = _head.Data;
+            string result = _head.Name;
             _head = _head.Next;
 
             if (_head == null)
@@ -55,11 +56,35 @@ namespace testThurs.Models
 
         public string? Peek()
         {
-            return _head?.Data;
+            return _head?.Name;
         }
         public bool IsEmpty()
         {
             return _count == 0;
+        }
+        public List<string> ToList()
+        {
+            List<string> list = new List<string>();
+            Node? current = _head;
+            while (current != null)
+            {
+                list.Add(current.Name);
+                current = current.Next;
+            }
+            return list;
+        }
+        public override string ToString()
+        {
+            var names = new List<string>();
+            var current = _head;
+            while (current != null)
+            {
+                names.Add(current.Name);
+                current = current.Next;
+            }
+
+            return string.Join("|", names);
+
         }
     }
 }
