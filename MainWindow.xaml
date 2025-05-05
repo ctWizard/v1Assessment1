@@ -9,8 +9,9 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="3*" />
-			<ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+
         </Grid.ColumnDefinitions>
 
         
@@ -21,7 +22,6 @@
             <TextBlock Text="Your Name:" Margin="0,0,0,5"/>
             <TextBox x:Name="NameTextBox" Text="{Binding BorrowerName}" Margin="0,0,0,10"/>
             <Button Content="Borrow" Command="{Binding Borrow_ClickCommand}"/>
-
             <TextBlock Text="Return Movie"/>
             <TextBlock Text="Movie ID"/>
             <TextBox Text="{Binding ReturnId}" Margin="0,0,0,10"/>
@@ -33,35 +33,65 @@
 
 
         <!-- Center: Controls -->
-        <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10">
-			<TextBlock Text="Id"/>
-			<TextBox Text="{Binding NewId, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
-			
-            <TextBlock Text="Title" />
-            <TextBox Text="{Binding NewTitle, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+        <Grid Grid.Column="1" Margin="10" Width="400" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Director" />
-            <TextBox Text="{Binding NewDirector, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+            <TextBlock Text="Id:" Grid.Row="0" Grid.Column="0" Margin="10" />
+            <TextBox Text="{Binding NewId, UpdateSourceTrigger=PropertyChanged}"  Margin="10" Grid.Row="0" Grid.Column="1" />
 
-			<TextBlock Text="Genre" />
-			<TextBox Text="{Binding NewGenre, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+            <TextBlock Text="Title:" Grid.Row="1" Grid.Column="0" Margin="10"/>
+            <TextBox Text="{Binding NewTitle, UpdateSourceTrigger=PropertyChanged}"  Margin="10" Grid.Row="1" Grid.Column="1"/>
 
-            <TextBlock Text="Year" />
-            <TextBox Text="{Binding NewYear, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+            <TextBlock Text="Director:" Grid.Row="2" Grid.Column="0" Margin="10"/>
+            <TextBox Text="{Binding NewDirector, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="10"/>
 
-            <Button Content="Add Book" Command="{Binding AddMovieCommand}" Margin="0,0,0,10"/>
-            
-            
+            <TextBlock Text="Genre:" Grid.Row="3" Grid.Column="0" Margin="10"/>
+            <TextBox Text="{Binding NewGenre, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1" Margin="10"/>
 
-			<TextBox x:Name="TitleSearchBox" Width="200" Margin="0,0,0,10"/>
-			<Button Content="TitleSearchButton" Command="{Binding SearchTitleCmdCommand}" CommandParameter="{Binding Text, ElementName=TitleSearchBox}" Margin="0,0,0,10"/>
-			<Button Content="IdSearchButton" Command="{Binding SearchIdCmdCommand}" CommandParameter="{Binding Text, ElementName=TitleSearchBox}" Margin="0,0,0,10"/>
+            <TextBlock Text="Year:" Grid.Row="4" Grid.Column="0" Margin="10"/>
+            <TextBox Text="{Binding NewYear, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="1" Margin="10"/>
 
-            <Button Content="Import Movies" Command="{Binding ImportMoviesFromFileCommand}"/>
-            <Button Content="Export to File" Command="{Binding ExportCommand}" Margin="0,0,0,10"/>
-        </StackPanel>
-		
-		<!-- Right search and sort output -->
+            <Button Content="Add Book" Command="{Binding AddMovieCommand}" Margin="10" Grid.Row="5"/>
+
+            <TextBlock Text="Search:" Grid.Row="6" Grid.Column="0" Margin="10"/>
+            <TextBox x:Name="TitleSearchBox"  Margin="10" Grid.Row="6" Grid.Column="1"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.ColumnSpan="2">
+                <Button Content="By Title" Command="{Binding SearchTitleCmdCommand}" CommandParameter="{Binding Text, ElementName=TitleSearchBox}" Margin="10"/>
+                <Button Content="By ID" Command="{Binding SearchIdCmdCommand}" CommandParameter="{Binding Text, ElementName=TitleSearchBox}" Margin="10"/>
+            </StackPanel>
+
+
+            <Button Content="Import Movies" Command="{Binding ImportMoviesFromFileCommand}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
+            <Button Content="Export to File" Command="{Binding ExportCommand}" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
+
+
+
+
+        </Grid>
+
+
+
+
+        
+
+            <!-- Right search and sort output -->
         <StackPanel Grid.Column="2">
             <DataGrid  Name="MovieGrid" Margin="10" IsReadOnly="True" CanUserAddRows="False" 
                        ItemsSource="{Binding SearchResults}" AutoGenerateColumns="False" CanUserSortColumns="False">
