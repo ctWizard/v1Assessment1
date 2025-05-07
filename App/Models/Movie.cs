@@ -1,7 +1,6 @@
-using testThurs.Models;
 
 
-namespace testThurs.Models
+namespace testThurs
 {
     public class Movie
     {
@@ -12,7 +11,7 @@ namespace testThurs.Models
         public int ReleaseYear { get; set; }
         public bool Availible { get; set; }
 
-        public string DisplayText => $"{MovieID} - {Title}";
+        
 
         public ReservationQueue ReservationQueue { get; } = new ReservationQueue();
 

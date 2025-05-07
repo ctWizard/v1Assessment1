@@ -1,5 +1,5 @@
-using testThurs.Models;
-namespace testThurs.Models
+
+namespace testThurs
 {
     public class MyHashTable
     {
