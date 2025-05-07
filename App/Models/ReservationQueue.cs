@@ -1,4 +1,4 @@
-namespace testThurs.Models
+namespace testThurs
 {
     public class ReservationQueue
     {

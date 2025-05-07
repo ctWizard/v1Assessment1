@@ -6,10 +6,10 @@ using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using testThurs.Models;
 
 
-namespace MovieLibraryApp
+
+namespace testThurs
 {
     public partial class MainViewModel : ObservableObject
     {

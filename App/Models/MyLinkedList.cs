@@ -4,7 +4,7 @@ using System.DirectoryServices;
 using System.IO;
 
 
-namespace testThurs.Models
+namespace testThurs
 {
     public class MyLinkedList<T>
     {
