@@ -154,7 +154,7 @@ namespace testThurs
             do
             {
                 swapped = false;
-                Node? current = head;
+                Node current = head;
 
                 while (current != null && current.Next !=null)
                 {
@@ -169,7 +169,7 @@ namespace testThurs
 
                         swapped = true;
                     }
-                    current = current?.Next;
+                    current = current.Next;
                     
                 }
             }
@@ -179,13 +179,13 @@ namespace testThurs
         }
 
         //merge sort function
-        public void MergeSortByTitle()
+        public void MergeSortByReleaseYear()
         {
             head = MergeSort(head);
         }
         private Node? MergeSort(Node? node)
         {
-            if (node==null && node.Next == null) 
+            if (node==null || node.Next == null) 
                 return node;
             Node? middle = GetMiddle(node);
             if (middle == null || middle == node)
@@ -208,11 +208,9 @@ namespace testThurs
                 return a;
 
             Node result;
-
-            if (string.Compare(a.Data.Title,b.Data.Title, StringComparison.OrdinalIgnoreCase)<=0)
-            {
+            if (a.Data.ReleaseYear <= b.Data.ReleaseYear){
                 result = a;
-                result.Next = SortedMerge(a.Next, b);
+                result.Next = SortedMerge(a.Next,b);
             }
             else
             {

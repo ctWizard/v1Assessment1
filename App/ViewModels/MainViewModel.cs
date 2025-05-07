@@ -243,7 +243,7 @@ namespace testThurs
         private void SortMerge()
         {
             SearchResults.Clear();
-            _movieList.MergeSortByTitle();
+            _movieList.MergeSortByReleaseYear();
             List<Movie> output = _movieList.ToList();
             foreach (Movie movie in output)
             {
