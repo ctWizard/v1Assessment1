@@ -28,6 +28,11 @@ namespace testThurs
                 current = current.Next;
             }
         }
+        public Movie? GetFirst(){
+            if (head !=null)
+                return head.Data;
+            else return null;
+        }
 
         public void Add(Movie item)
         {
@@ -110,6 +115,17 @@ namespace testThurs
             while (current != null)
             {
                 if (current.Data.Title == title)
+                { return current.Data; }
+                current = current.Next;
+            }
+            return null;
+        }
+        public Movie? FindByID(string id)
+        {
+            Node? current = head;
+            while (current != null)
+            {
+                if (current.Data.MovieID == id)
                 { return current.Data; }
                 current = current.Next;
             }

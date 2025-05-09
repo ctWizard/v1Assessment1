@@ -119,10 +119,10 @@ namespace testThurs
             {
                 if (!movie.ReservationQueue.IsEmpty())
                 {
-                    string returningUser = movie.ReservationQueue.Dequeue();
+                    string? returningUser = movie.ReservationQueue.Dequeue();
                     if (!movie.ReservationQueue.IsEmpty())
                     {
-                        string nextUser = movie.ReservationQueue.Peek();
+                        string? nextUser = movie.ReservationQueue.Peek();
                         MessageBox.Show($"{ returningUser} has returned {movie.Title} movie has been given to {movie.ReservationQueue.Peek()}");
                     }
                     else
@@ -165,7 +165,10 @@ namespace testThurs
                     Availible = true,
                 };
 
-                
+                if (movie.MovieID.Length>10){
+                MessageBox.Show("id length is over 10 characters\n please enter a shorter ID value");
+                return;
+                }
 
                 bool check = _movieHashTable.Add(NewId, movie);
                 if (check==false) { MessageBox.Show("Duplicate ID value '" + NewId + "' is already in use");}
@@ -208,11 +211,11 @@ namespace testThurs
             if (dialog.ShowDialog() == true)
             {
                 _movieList.ImportFromCsv(dialog.FileName);
-                List<Movie> movieListTemp = new List<Movie>();
-
+                
+                List<Movie> movieListTemp = _movieList.ToList();
                 foreach (var movie in movieListTemp)
                 {
-                    _movieHashTable.Add(NewId, movie);
+                    _movieHashTable.Add(movie.MovieID, movie);
                 }
                     RefreshMovies() ;
                 
@@ -222,9 +225,6 @@ namespace testThurs
 
             
         }
-
-
-
 
         [RelayCommand]
         private void SortBubble()
