@@ -259,7 +259,7 @@ namespace testThurs
         private void Export()
         {
             //"C:\Users\corey\.gitconfig"
-            string path = "C:\\Users/corey/movies.csv";
+            string path = "movies.csv";
             _movieList.ExportToCsv(path);
         }
 
