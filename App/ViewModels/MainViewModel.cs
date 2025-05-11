@@ -181,6 +181,10 @@ namespace testThurs
                 NewYear = "";
 
             }
+            else{
+                MessageBox.Show("The year field is to far in the future! Field has been cleared.");
+                NewYear="";
+            }
             
         }
 
