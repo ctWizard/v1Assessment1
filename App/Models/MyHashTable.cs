@@ -61,7 +61,7 @@ namespace testThurs
         public Movie? Get(string key)
         {
             int index = GetIndex(key.Trim());
-            HashNode head = _buckets[index];
+            HashNode? head = _buckets[index];
 
             while (head != null)
             {

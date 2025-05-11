@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:testThurs"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450">
+        Title="MainWindow" Height="450" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="200px" />
+            <ColumnDefinition Width="400px" />
+            <ColumnDefinition Width="0.5*" />
 
         </Grid.ColumnDefinitions>
 
@@ -33,7 +33,7 @@
 
 
         <!-- Center: Controls -->
-        <Grid Grid.Column="1" Margin="10" Width="400" >
+        <Grid Grid.Column="1" Margin="10" Width="300" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -67,7 +67,7 @@
             <TextBlock Text="Year:" Grid.Row="4" Grid.Column="0" Margin="10"/>
             <TextBox Text="{Binding NewYear, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="1" Margin="10"/>
 
-            <Button Content="Add Book" Command="{Binding AddMovieCommand}" Margin="10" Grid.Row="5"/>
+            <Button Content="Add Movie" Command="{Binding AddMovieCommand}" Margin="10" Grid.Row="5"/>
 
             <TextBlock Text="Search:" Grid.Row="6" Grid.Column="0" Margin="10"/>
             <TextBox x:Name="TitleSearchBox"  Margin="10" Grid.Row="6" Grid.Column="1"/>
@@ -106,8 +106,8 @@
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                <Button  Content="BubbleSortButton" Command="{Binding SortBubbleCommand}" Margin="10"/>
-                <Button  Content="MergeSortButton" Command="{Binding SortMergeCommand}" Margin="10"/>
+                <Button  Content="BubbleSortByTitle" Command="{Binding SortBubbleCommand}" Margin="10"/>
+                <Button  Content="MergeSortByReleaseYear" Command="{Binding SortMergeCommand}" Margin="10"/>
             </StackPanel>
             
             
